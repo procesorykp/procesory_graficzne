@@ -1,0 +1,14 @@
+#version 330
+
+in vec4 vVertex;
+in vec4 vColor;
+
+
+out vec4 vVaryingColor;
+uniform mat4x4 MVPMatrix;
+
+void main() {
+    vVaryingColor = vColor;
+    //gl_Position = vVertex;
+    gl_Position = MVPMatrix*vVertex;
+}
