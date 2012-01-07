@@ -1,0 +1,11 @@
+#version 330
+
+uniform mat4x4 mvpMatrix;
+in vec4 vertexPosition;
+in vec4 vertexColor;
+out vec4 fragmentColor;
+
+void main() {
+ fragmentColor = vertexColor;
+ gl_Position = mvpMatrix * vertexPosition;
+}
