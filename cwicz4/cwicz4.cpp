@@ -43,7 +43,7 @@ int faces_icosahedron[3 * 20] = {  1, 11,  7,
                                	2,  7,  9,
                                	8,  6,  2 };
 
-struct Point_Light {
+struct punktowe_swiatlo {
    float position[3];
    float intensity_diffuse[3];
    float intensity_specular[3];
@@ -118,7 +118,7 @@ float intensity_ambient_component[] = {0.2f, 0.2f, 0.2f};
 
 
 CStopWatch timer;
-Point_Light swiatlo_0;
+punktowe_swiatlo swiatlo_0;
 Material material_0;
 void SetUpFrame(GLFrame & frame, const M3DVector3f origin, const M3DVector3f forward, const M3DVector3f up) {
    frame.SetOrigin(origin);
