@@ -75,10 +75,10 @@ struct punktowe_swiatlo {
 };
 
 struct Material {
-   float r_ambient;//ka; 
-   float r_diffuse;//kd; 
-   float r_spectacular;//ks;  
-   float alpha; // shininess constant, which is larger for surfaces that are smoother and more mirror-like. When this constant is large the specular highswiatlo is small
+   float r_ambient; 
+   float r_diffuse; 
+   float r_spectacular;  
+   float alpha;
 
    void set_parameters(float r_ambient, float r_diffuse, float r_spectacular, float alpha) {
   	this->r_ambient = r_ambient;
@@ -88,8 +88,8 @@ struct Material {
    }
 };
 GLuint shader_swiatlo,
-   	shader_color,
-   	MVPMatrixLocation_shader_color,
+   	ShaderColor,
+   	MVPMatrixLocation_ShaderColor,
    	MVPMatrixLocation,
    	mvMatrix_location,
    	vMatrix_location,
@@ -142,8 +142,8 @@ void change_size(int w, int h) {
 void SetupRC() {
    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
    shader_swiatlo = gltLoadShaderPairWithAttributes("gouraud_shader.vp", "gouraud_shader.fp", 3, GLT_ATTRIBUTE_VERTEX, "vPosition", GLT_ATTRIBUTE_COLOR, "vColor", GLT_ATTRIBUTE_NORMAL, "vertex_normal");
-   shader_color = gltLoadShaderPairWithAttributes("pass_thru_shader.vp", "pass_thru_shader.fp", 2, GLT_ATTRIBUTE_VERTEX, "vPosition", GLT_ATTRIBUTE_COLOR, "vColor");
-   MVPMatrixLocation_shader_color = glGetUniformLocation(shader_color, "mvpMatrix");
+   ShaderColor = gltLoadShaderPairWithAttributes("pass_thru_shader.vp", "pass_thru_shader.fp", 2, GLT_ATTRIBUTE_VERTEX, "vPosition", GLT_ATTRIBUTE_COLOR, "vColor");
+   MVPMatrixLocation_ShaderColor = glGetUniformLocation(ShaderColor, "mvpMatrix");
    MVPMatrixLocation = glGetUniformLocation(shader_swiatlo, "mvpMatrix");
    mvMatrix_location = glGetUniformLocation(shader_swiatlo, "mvMatrix");
    vMatrix_location = glGetUniformLocation(shader_swiatlo, "vMatrix");
@@ -313,11 +313,11 @@ void render_scene(void) {
    mv_stack.LoadMatrix(camera_matrix);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
  
-   glUseProgram(shader_color);
+   glUseProgram(ShaderColor);
    mv_stack.PushMatrix();
    mv_stack.Translate(swiatlo_0.position[0], swiatlo_0.position[1], swiatlo_0.position[2]);
    mv_stack.Scale(0.25f, 0.25f, 0.25f);
-   glUniformMatrix4fv(MVPMatrixLocation_shader_color, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
+   glUniformMatrix4fv(MVPMatrixLocation_ShaderColor, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
    rysuj_swiatlo();
    mv_stack.PopMatrix();
  
